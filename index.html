@@ -17,6 +17,18 @@
 
                 <textarea id="words" rows="9" cols="25" autofocus="autofocus" style="font-size: 16px;" placeholder="Enter words on separate lines, or separated by commas..."></textarea>
                 <br>
+                <input type="number" id="connections" name="Connections" min="0" max="1" step=0.05 value=0.7>
+                <label for="Connections">Connections to other words</label>
+                <br>
+                <input type="number" id="distance" name="Distance from centre" min="0" max="1" step=0.05 value=0.15>
+                <label for="Distance from centre">Distance from centre</label>
+                <br>
+                <input type="number" id="vert_horiz" name="Across/Down" min="0" max="1" step=0.05 value=0.1>
+                <label for="vert_horiz">Across/Down balancec</label>
+                <br>
+                <input type="number" id="length" name="Word length" min="0" max="1" step=0.05 value=0.05>
+                <label for="length">Word length</label>
+                <br>
                 <button onclick="button_clicked();" style="font-size: 14px; cursor: pointer;">Generate Layout</button>
             </div>
 
@@ -84,9 +96,14 @@ function button_clicked(){
     word_list = word_list.replace(/[\r\n,;:-]+/g, ",").split(",");
     if(word_list[0] != ""){
         var input_json = convert_to_json(word_list);
+        var weights = [
+            Number(document.getElementById('connections').value),
+            Number(document.getElementById('distance').value),
+            Number(document.getElementById('vert_horiz').value),
+            Number(document.getElementById('length').value)];
 
         // Output data
-        var layout = generateLayout(input_json);
+        var layout = generateLayout(input_json, weights);
         var rows = layout.rows;
         var cols = layout.cols;
         var table = layout.table; // table as two-dimensional array

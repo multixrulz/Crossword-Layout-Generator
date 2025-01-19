@@ -500,19 +500,20 @@ function tableToCwpuzzle(layout){
   }
 }
 
-function generateSimpleTable(words){
+function generateSimpleTable(words, weights_input){
   // Weights should sum to 1
   // Having trouble with disconnected words when I try to increase the
   // weighting of distance from centre.
-  var weights_compact = [0.3, // 1. Number of connections
-    7, // 2. Distance from center
-    0, // 3. Vertical versus horizontal orientation
-    0]; // 4. Word length
+  var weights
   var weights_default = [0.7, // 1. Number of connections
     0.15, // 2. Distance from center
     0.1, // 3. Vertical versus horizontal orientation
     0.05]; // 4. Word length
-  var weights = weights_default;
+  if (typeof weights_input === 'undefined') {
+    weights = weights_default;
+  } else {
+    weights = weights_input;
+  }
   var rows = computeDimension(words, 3);
   var cols = rows;
   var blankTable = initTable(rows, cols);
@@ -523,8 +524,8 @@ function generateSimpleTable(words){
   return finalTable;
 }
 
-function generateLayout(words_json){
-  var layout = generateSimpleTable(words_json);
+function generateLayout(words_json, weights){
+  var layout = generateSimpleTable(words_json, weights);
   layout.table_string = tableToString(layout.table, "<br>");
   layout.cwpuzzle = tableToCwpuzzle(layout);
   return layout;
