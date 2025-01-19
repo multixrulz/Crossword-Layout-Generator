@@ -1,5 +1,15 @@
 # Crossword Layout Generator - Open Source
+## Major differences...
+...compared to Michael Wehar's code.
+
+The crossword layout generator has been designed to be run stand-alone on a web page, and the results put into [LaTeX cwpuzzle](https://ctan.org/tex-archive/macros/latex/contrib/gene/crossword/).
+
+Go to the [working website](crossword.henley.id.au), or download the code and open the index.html file in your browser.
+
+Options are provided for the various optimisation parameters, so that you can generate different crossword layouts for the same set of inputs.
+
 ## Introduction
+
 A crossword consists of clues, answers, and a layout:
 - The answers are the hidden words that the player is trying to guess.
 - Each answer has a clue which is a sentence or phrase that helps the player to guess the associated answer.
@@ -20,10 +30,6 @@ The output is a crossword layout.  That is, we associate a position, startx, sta
 Here is an example output:
 
 `[{"clue":"the collective designation of items for a particular purpose","answer":"equipment","startx":1,"starty":4,"position":1,"orientation":"across"},{"clue":"an opening or entrance to an inclosed place","answer":"port","startx":5,"starty":4,"position":2,"orientation":"down"},{"clue":"that which is established as a rule or model by authority, custom, or general consent","answer":"standard","startx":8,"starty":1,"position":3,"orientation":"down"},{"clue":"a machine that computes","answer":"computer","startx":3,"starty":2,"position":4,"orientation":"across"},{"clue":"a point where two things can connect and interact","answer":"interface","startx":1,"starty":1,"position":5,"orientation":"down"}]`
-
-One can visualize the output as follows:
-
-![Example Output](https://github.com/MichaelWehar/Crossword-Layout-Generator/blob/master/example_images/crossword1_filled.png)
 
 ## Getting Started
 
@@ -46,9 +52,6 @@ var output_json = layout.result; // words along with orientation, position, star
 </script>
 ```
 
-**Update:** Our crossword layout generator is now available as a package for Node.js applications.  For more information, see the Node.js version of our README here: https://github.com/MichaelWehar/Crossword-Layout-Generator/blob/npm/README.md
-
-Also, see our package's npm listing here: https://www.npmjs.com/package/crossword-layout-generator
 
 ## Demo Website
 
@@ -62,9 +65,6 @@ The demo website shows:
 
 - how to turn your crossword layout into a **word search puzzle** with horizontal and vertical answers.
 
-**Demo:** http://michaelwehar.com/crosswords
-
-**Short Article:** https://makeprojects.com/project/crossword-layout-generator---open-source
 
 ## Information for Advanced Users
 
@@ -74,8 +74,7 @@ The demo website shows:
 
 - The program is efficient on small word lists, but it runs noticably slower when the list contains more than 100 words.
 
-- We are still exploring potential ways to evaluate the quality of the generated crossword layouts.  See [Issue #2](https://github.com/MichaelWehar/Crossword-Layout-Generator/issues/2).
-
+- We are still exploring potential ways to evaluate the quality of the generated crossword layouts.
 ## License
 - MIT
 
@@ -83,13 +82,6 @@ The demo website shows:
 - Michael Wehar
 - Itay Livni
 - Michael Blättler
+- Jared Henley
 
-## Updates (December 2024)
-
-I also co-implemented an algorithm for automatic crossword puzzle filling.  Take a look at the new repository here @ [Automatic Crossword Puzzle Filling](https://github.com/MichaelWehar/Automatic-Crossword-Puzzle-Filling)
-
-## External Projects That Use Our Library
-
-- [WoordSchaap](https://github.com/erasche/woordschaap)
-
-- [Collaboration with TapNotion at PyCon 2018](https://pycon-archive.python.org/2018/schedule/presentation/179/)
+[Forked from](https://github.com/MichaelWehar/Crossword-Layout-Generator).
