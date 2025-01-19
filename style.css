@@ -1,0 +1,52 @@
+body {
+margin: 0;
+border: 0;
+padding: 0;
+font-family: sans-serif;
+}
+
+h1 {
+background: #eee;
+margin: 0;
+border: 0;
+padding: 2vw;
+}
+
+#in-out {
+display: flex;
+flex-flow: row;
+justify-content: space-between;
+gap: 1em;
+background: #eee;
+margin: 0;
+border: 0;
+padding: 2vw;
+}
+
+#input {
+flex-basis: 30%;
+}
+
+#output-text {
+flex-basis: 20%;
+}
+
+#output-code {
+flex-basis: 40%;
+}
+
+#footer {
+border-top: solid 1px black;
+background: #bbb;
+padding: 2vw;
+font-size: 80%;
+}
+
+.code {
+font-family: monospace;
+font-size: 120%;
+}
+
+input[type=number] {
+width: 10ex;
+}
