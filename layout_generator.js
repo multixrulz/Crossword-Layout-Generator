@@ -75,7 +75,6 @@ function addWord(best, words, table){
     }
     words[index].orientation = "down";
   }
-  console.log(word + ", " + bestScore);
 }
 
 function assignPositions(words){
@@ -461,11 +460,63 @@ function tableToString(table, delim){
   }
 }
 
+function tableToCwpuzzle(layout){
+  var rows = layout.table.length;
+  if(rows >= 1){
+    var cols = layout.table[0].length;
+    var output = "\\begin{Puzzle}{" +
+        layout.cols + "}{" + layout.rows + "}%\n";
+    var wordnumber = 1;
+    var startletter = false;
+    for(let i = 0; i < rows; i++){
+      for(let j = 0; j < cols; j++){
+        startletter = false;
+        char = layout.table[i][j];
+        if (char == '-') {
+          output += '|{} ';
+        } else {
+          for (let word = 0; word < layout.result.length; word++) {
+            startx = layout.result[word].startx-1; // convert to zero-referenced
+            starty = layout.result[word].starty-1; // convert to zero-referenced
+            if ((i == starty) && (j == startx)) {
+              output += '|[' + wordnumber + ']' + char + ' ';
+              wordnumber++;
+              startletter = true
+              break;
+            }
+          }
+          if (!startletter) {
+            output += '|'+ char + ' ';
+          }
+        }
+      }
+      output += '|.\n';
+    }
+      output += '\n\\end{Puzzle}';
+    return output;
+  }
+  else{
+    return "";
+  }
+}
+
 function generateSimpleTable(words){
+  // Weights should sum to 1
+  // Having trouble with disconnected words when I try to increase the
+  // weighting of distance from centre.
+  var weights_compact = [0.3, // 1. Number of connections
+    7, // 2. Distance from center
+    0, // 3. Vertical versus horizontal orientation
+    0]; // 4. Word length
+  var weights_default = [0.7, // 1. Number of connections
+    0.15, // 2. Distance from center
+    0.1, // 3. Vertical versus horizontal orientation
+    0.05]; // 4. Word length
+  var weights = weights_default;
   var rows = computeDimension(words, 3);
   var cols = rows;
   var blankTable = initTable(rows, cols);
-  var table = generateTable(blankTable, rows, cols, words, [0.7, 0.15, 0.1, 0.05]);
+  var table = generateTable(blankTable, rows, cols, words, weights);
   var newTable = removeIsolatedWords(table);
   var finalTable = trimTable(newTable);
   assignPositions(finalTable.result);
@@ -475,6 +526,7 @@ function generateSimpleTable(words){
 function generateLayout(words_json){
   var layout = generateSimpleTable(words_json);
   layout.table_string = tableToString(layout.table, "<br>");
+  layout.cwpuzzle = tableToCwpuzzle(layout);
   return layout;
 }
 
